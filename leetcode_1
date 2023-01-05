@@ -26,3 +26,29 @@
 链接：https://leetcode.cn/problems/two-sum
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
+
+解题思路
+
+遍历数组每个数，在哈希表中记录每个数所需的剩余数值及其索引号，当遍历每个数时，先查找所需数值是否在哈希表中已经存在，如存在则找到了答案，否则记录并继续遍历。由于哈希表的查找速度为O(1)，所以最终时间复杂度为O(n)
+
+
+最终代码
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        map<int, int> hash_map;
+        vector<int> index;
+        for (int i = 0; i < nums.size(); ++i) {
+            int num = nums[i];
+            if (hash_map.find(target - num) == hash_map.end()) {
+                hash_map.insert(make_pair(num, i));
+            } else {
+                index.push_back(hash_map[target - num]);
+                index.push_back(i);
+                break;
+            }
+        }
+        return index;
+    }
+};
